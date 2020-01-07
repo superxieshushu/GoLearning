@@ -1,4 +1,4 @@
-package chapter1
+package main
 
 import (
 	"image"
@@ -11,15 +11,23 @@ import (
 	"strconv"
 )
 
-var palette = []color.Color{color.White, color.Black}
+var palette = []color.Color{color.White, color.Black, color.RGBA{R: 0xAA, G: 0xBB, B: 0xCC, A: 0xFF}}
+var cycles = 5
 
 const (
 	whiteIndex = 0
 	blackIndex = 1
 )
 
-func Lissajous(out io.Writer, request *http.Request) {
-	var cycles = 5
+func LissajousWithCycles(out io.Writer, request *http.Request) {
+	cycle, err := strconv.Atoi(request.FormValue("cycles"))
+	if err != nil {
+		cycles = cycle
+	}
+	Lissajous(out)
+}
+
+func Lissajous(out io.Writer) {
 
 	const (
 		res     = 0.001
@@ -28,10 +36,6 @@ func Lissajous(out io.Writer, request *http.Request) {
 		delay   = 8
 	)
 
-	cycles, err := strconv.Atoi(request.FormValue("cycles"))
-	if err != nil {
-		cycles = 5
-	}
 	freq := rand.Float64() * 3.0
 	anim := gif.GIF{LoopCount: nframes}
 	phase := 0.0

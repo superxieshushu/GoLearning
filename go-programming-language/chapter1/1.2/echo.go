@@ -29,12 +29,12 @@ func EchoV3() {
 }
 
 //练习 1.1： 修改 echo 程序，使其能够打印 os.Args[0] ，即被执行命令本身的名字
-func P1() {
+func P11() {
 	fmt.Println(strings.Join(os.Args[0:], " "))
 }
 
 //练习 1.2： 修改 echo 程序，使其打印每个参数的索引和值，每个一行
-func P2() {
+func P12() {
 	for i, arg := range os.Args {
 		fmt.Println(i)
 		fmt.Println(arg)
